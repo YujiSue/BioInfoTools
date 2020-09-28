@@ -47,7 +47,7 @@ public:
     AnnotDBMake() : sapp::SCuiApp(
     {
         kv("app", V({
-            kv("type", sapp::SCUI_APP|sapp::SINGLE_PROCESS),
+            kv("type", sapp::SCUI_APP|sapp::SINGLE_COMMAND),
             kv("name", "AnnotDBMake"),
             kv("version", "1.1.0"),
             kv("creator", "Yuji Suehiro"),

@@ -155,8 +155,9 @@ public:
     VariantDetect() : SCuiApp(
     {
         kv("app", V({
-            kv("name", sapp::SCUI_APP|sapp::SINGLE_PROCESS),
-            kv("ver", "1.1.0"),
+			kv("type", sapp::SCUI_APP | sapp::SINGLE_COMMAND),
+            kv("name", "VariantDetect"),
+            kv("version", "1.1.0"),
             kv("creator", "Yuji Suehiro"),
             kv("license", "MIT license."),
             kv("develop", "2015/02/21"),

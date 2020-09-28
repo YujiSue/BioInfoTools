@@ -34,7 +34,7 @@ public:
     GFFParser() : SCuiApp(
     {
         kv("app", V({
-            kv("type", SCUI_APP | SINGLE_PROCESS),
+            kv("type", SCUI_APP | SINGLE_COMMAND),
             kv("name", "GFFParser"),
             kv("version", "1.0.0"),
             kv("creator", "Yuji Suehiro"),

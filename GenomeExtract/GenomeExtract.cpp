@@ -45,7 +45,7 @@ public:
     GenomeExtract() : SCuiApp(
     {
         kv("app", V({
-            kv("type", SCUI_APP | SINGLE_PROCESS),
+            kv("type", SCUI_APP | SINGLE_COMMAND),
             kv("name", "GenomeExtract"),
             kv("version", "1.1.0"),
             kv("creator", "Yuji Suehiro"),
