@@ -53,7 +53,7 @@ _II. For users who execute the program on google colab._
 
 2. Install the required libraries and GenomeConverter according to the guidance in the notebook.
 
-3. Upload the FASTA format genomic sequence to Google colab's temporal storage or google drive and execute the program.
+3. Download the FASTA format genomic sequence to Google colab's temporal storage or google drive and execute the program.
 
 ## File format
 The encoded binary DNA sequence is 

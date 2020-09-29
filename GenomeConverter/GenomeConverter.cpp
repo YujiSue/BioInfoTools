@@ -79,16 +79,17 @@ public:
 			std::cout << "exporting... '" << preference["out"] << "'" << std::endl;
 			reference.save(preference["out"]);
             std::cout<<"Completed."<<std::endl;
-        } catch (SException se) {
-            se.print();
-            return 1;
         } catch (SIOException ie) {
             ie.print();
             return 1;
         } catch (SBioInfoException be) {
             be.print();
             return 1;
-        }
+		}
+		catch (SException se) {
+			se.print();
+			return 1;
+		}
         return 0;
     }
     
