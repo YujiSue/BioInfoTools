@@ -1,6 +1,6 @@
 # GenomeConverter
 
-[English](#About)/[日本語](#このコードについて)
+[English](#About)/[日本語](#このプログラムについて)
 
 ## About
 This program is a file converter from FASTA format DNA sequene to binary file, in which the DNA sequence was compressed to 1 byte / 4 bases.
@@ -60,7 +60,7 @@ The encoded binary DNA sequence is
 
 ***
 
-## このコードについて
+## このプログラムについて
 このプログラムは、FASTA形式のDNA塩基配列を４塩基１バイトに圧縮したバイナリファイルに変換するソフトです。
 
 ## インストール方法
