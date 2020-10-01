@@ -93,7 +93,7 @@ _II. Google Colab.上で実行する場合_
 
 
 ### Example1 (human)
-> $ ./AnnotDBMake -r {SOMEWHERE}/human.bin -p human.dll -g {SOMEWHERE}/Homo_sapiens.GRCh38.99.chr.gff3 -d GRCh38.99 -s "Homo sapiens" -c "Yuji Suehiro" -o {SOMEWHERE}/human.db
+> $ ./AnnotDBMake -r {SOMEWHERE}/human.bin -p human.so/.dll -g {SOMEWHERE}/Homo_sapiens.GRCh38.99.chr.gff3 -d GRCh38.99 -s "Homo sapiens" -c "Yuji Suehiro" -o {SOMEWHERE}/human.db
 
 ### Example2 (nematode)
 > $ ./AnnotDBMake -r {SOMEWHERE}/nematode.bin -p nematode.dll -g {SOMEWHERE}/c_elegans.PRJNA13758.WS274.annotations.gff3 -d WS274 -s "Caenorhabditis elegan" -c "Yuji Suehiro" -e "gene:{SOMEWHERE}/c_elegans.PRJNA13758.WS274.geneIDs.txt,description:{SOMEWHERE}/c_elegans.PRJNA13758.WS274.functional_descriptions.txt" -o {SOMEWHERE}/nematode.db

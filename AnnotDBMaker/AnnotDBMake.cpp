@@ -39,7 +39,10 @@ private:
         } catch (SBioInfoException be) {
             be.print();
             return 1;
-        }
+        } catch (sapp::SAppException ae) {
+			ae.print();
+			return 1;
+		}
         return 0;
     }
     
