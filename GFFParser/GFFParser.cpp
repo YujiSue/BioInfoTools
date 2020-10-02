@@ -38,7 +38,7 @@ public:
             kv("name", "GFFParser"),
             kv("version", "1.0.0"),
             kv("creator", "Yuji Suehiro"),
-            kv("license", "MIT license"),
+            kv("license", "MIT license."),
             kv("develop", "2015/03/15"),
         })),
         kv("command", V({

@@ -57,7 +57,7 @@ public:
             kv("name", "MapSVG"),
             kv("version", "1.1.0"),
             kv("creator", "Yuji Suehiro"),
-            kv("license", "MIT license"),
+            kv("license", "MIT license."),
             kv("develop", "2019/02/13"),
         })),
         kv("command", V({

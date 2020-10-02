@@ -54,7 +54,7 @@ public:
             kv("name", "AnnotDBMake"),
             kv("version", "1.1.0"),
             kv("creator", "Yuji Suehiro"),
-            kv("license", "MIT License"),
+            kv("license", "MIT license."),
             kv("develop", "2015/02/21"),
         })),
         kv("command", V({
