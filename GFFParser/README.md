@@ -1,6 +1,6 @@
 # GFFParser
 
-[English](#About)/[日本語](#このコードについて)
+[English](#About)/[日本語](#このプログラムについて)
 
 ## About
 This program extracts "source", "type", and keys of "attributes" from GFF3 format file.  
@@ -64,7 +64,7 @@ source \<TAB\> type \<TAB\> [comma separated keys of attributes] \<EOL\>
 ...
 ***
 
-## このコードについて
+# このプログラムについて
 このプログラムは、GFF3ファイルから "source"、"type"、および"attributes"のキー文字列を抽出して出力するものです。    
 GFF3フォーマットの詳細については、[GMOD wiki](http://gmod.org/wiki/GFF3)を参照してください。   
 

@@ -17,12 +17,12 @@ private:
 				switch (vit->var.type) {
 				case sbio::SNV:
 					std::cout << par.ref[vit->var.pos[0].idx]->name << ":" << vit->var.pos[0].begin << " (" <<
-						par.ref[vit->var.pos[0].idx]->raw(vit->var.pos[0].begin, 1) <<
+						par.ref[vit->var.pos[0].idx]->raw(vit->var.pos[0].begin-1, 1) <<
 						"->" << vit->var.alt << " substitution)." << std::endl;
 					break;
 				case sbio::MNV:
 					std::cout << par.ref[vit->var.pos[0].idx]->name << ":" << vit->var.pos[0].begin << " (" <<
-						par.ref[vit->var.pos[0].idx]->raw(vit->var.pos[0].begin, vit->var.alt.length()) <<
+						par.ref[vit->var.pos[0].idx]->raw(vit->var.pos[0].begin-1, vit->var.alt.length()) <<
 						"->" << vit->var.alt << " substitutions)." << std::endl;
 					break;
 				case sbio::DELETION:
