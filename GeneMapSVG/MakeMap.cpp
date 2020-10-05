@@ -41,9 +41,9 @@ sfig MakeMap::_makeBox(sbio::annot_info* info, float h, const SColor& col) {
 sfig MakeMap::_makeTriangle(int start, bool dir, float h, const SColor& col) {
 	float init = _scale * (start - _pos.begin);
 	SPolygon poly;
-	poly.addVertex(v2f(init, h - 2.5));
-	poly.addVertex(v2f(init, h + 2.5));
-	poly.addVertex(v2f(init + (dir ? -5.0 : 5.0), h));
+	poly.addVertex(v2f(init, h - 2.5f));
+	poly.addVertex(v2f(init, h + 2.5f));
+	poly.addVertex(v2f(init + (dir ? -5.0f : 5.0f), h));
 	poly.setFillColor(col);
 	return poly;
 }
@@ -51,7 +51,7 @@ sfig MakeMap::_makeTriangle(int start, bool dir, float h, const SColor& col) {
 sfig MakeMap::chromosome() {
 	sfig chr(sshape::GROUP);
 	chr->attribute()["name"] = "chromosome";
-	sline2d chr_line(v2f(0, 20.0), v2f(_width, 20.0));
+	sline2d chr_line(v2f(0.0f, 20.0f), v2f((float)_width, 20.0f));
 	chr_line->setStrokeWidth(2.0f);
 	scalligraphy chr_label(0, 12.0, _db.chrInfo(_pos.idx).name);
 	chr_label->setFont("Arial", 12.0f);
@@ -82,14 +82,14 @@ sfig MakeMap::chromosome() {
 			scales.addFigure(ls);
 			scalligraphy scale_label((init - _pos.begin) * _scale - 2.5f, 10.0, String(init / unit_len) + unit);
 			scale_label->setFont("Arial", 9.0f);
-			chr_scale->addFigure(scale_label);
+			if(!chr_label->cross(scale_label)) chr_scale->addFigure(scale_label);
 			init += lunit;
 		}
 
 		init = _pos.begin / sunit;
 		init *= sunit;
 		while (init < _pos.end) {
-			sline2d ls(v2f((init - _pos.begin) * _scale, 15.0f), v2f((init - _pos.begin) * _scale, 25.0f));
+			sline2d ls(v2f((init - _pos.begin) * _scale, 16.0f), v2f((init - _pos.begin) * _scale, 24.0f));
 			ls->setStrokeWidth(0.75f);
 			scales.addFigure(ls);
 			init += sunit;
@@ -151,6 +151,7 @@ sfig MakeMap::transcripts() {
 			gene_g->attribute()["name"] = E_->name;
 			int h = 0;
 			sforeach_(tit, E_->transcripts) {
+				if (_pos.end < (*tit)->begin || (*tit)->end < _pos.begin) continue;
 				sfig trs_g(sshape::GROUP);
 				trs_g->attribute()["name"] = (*tit)->name;
 				auto line = _makeLine(*tit, h + 15.0f, color::BLACK);

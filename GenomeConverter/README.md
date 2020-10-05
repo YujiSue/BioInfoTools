@@ -55,7 +55,7 @@ _II. For users who execute the program on google colab._
 
 3. Download the FASTA format genomic sequence to Google colab's temporal storage or google drive and execute the program.
 
-## File format
+## File format of encoded sequence
 The encoded binary DNA sequence is 
 
 ***

@@ -1,11 +1,10 @@
 # AnnotDBMaker
 
-[English](#About)/[日本語](#このコードについて)
+[English](#About)/[日本語](#このプログラムについて)
 
 ## About
 This is a core program to generate sqlite3 database for gene annotation from GFF3 format file and other additional files.  
 To run this program, you will need plug-ins tailored to the annotation data of each species.
-
 
 ## Install
 Please see [Installation of BioInfoTools]().
@@ -49,7 +48,7 @@ The encoded binary DNA sequence is
 
 ***
 
-## このコードについて
+## このプログラムについて
 このプログラムは、FASTA形式のDNA塩基配列を４塩基１バイトに圧縮したバイナリファイルに変換するソフトです。
 
 ## インストール方法
@@ -58,7 +57,7 @@ The encoded binary DNA sequence is
 ## 使用法  
 _I. 自分のコンピュータ上で実行する場合_
 1. [RefSeq](https://www.ncbi.nlm.nih.gov/refseq/)などから、ゲノムのFASTAファイルをダウンロードしてください。  
-2, 線虫研究者の場合は、[wormbase ftp site](ftp://ftp.wormbase.org/pub/wormbase/species/) からダウロードできるFASTAファイルの方が最新です。  
+線虫研究者の場合は、[wormbase ftp site](ftp://ftp.wormbase.org/pub/wormbase/species/) からダウロードできるFASTAファイルの方が最新です。  
 
 2. 
 - Mac/Linux/Unixユーザ  
