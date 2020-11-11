@@ -6,7 +6,7 @@
 This program is a file converter from FASTA format DNA sequene to binary file, in which the DNA sequence was compressed to 1 byte / 4 bases.
 
 ## Install
-Please see [Installation of BioInfoTools]().
+Please see the repository top.
 
 ## Usage
 _I. For users who execute the program on your computer._
@@ -22,24 +22,6 @@ Launch the "Command Prompt".
 3. Move to the directory, in which the GenomeConverter was installed.
 
 4. Exec the command.
-```  
-Usage:
-  GenomeConverter -o 'output' input(s) { -l } { -s name } { -r version }
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
-[Option]
-  --linkage/-l        :  Select only linkaged sequence.
-  --out/-o            : *Output file path.
-  --refver/-r         :  Reference version.
-  --species/-s        :  Species.
-
-  --help/-H           : Show help.
-  --info/-I           : Show app information.
-  --version/-V        : Show version.
-
-  * Required option.
-  # Choose one of the options.
-```  
 
 ### Example1 (human)  
 >$ ./GenomeConverter -l -s "H. sapiens" -r GRCh38.p13 -o {SOMEWHERE}/human.bin {SOMEWHERE}/GCF_000001405.39_GRCh38.p13_genomic.fna  
@@ -55,16 +37,13 @@ _II. For users who execute the program on google colab._
 
 3. Download the FASTA format genomic sequence to Google colab's temporal storage or google drive and execute the program.
 
-## File format of encoded sequence
-The encoded binary DNA sequence is 
-
 ***
 
 ## このプログラムについて
 このプログラムは、FASTA形式のDNA塩基配列を４塩基１バイトに圧縮したバイナリファイルに変換するソフトです。
 
 ## インストール方法
-インストール方法は、 [BioInfoToolsのインストール]()を参照してください。
+インストール方法はリポジトリのトップページを参照してください。
 
 ## 使用法  
 _I. 自分のコンピュータ上で実行する場合_
@@ -80,25 +59,6 @@ _I. 自分のコンピュータ上で実行する場合_
 3. インストールしたソフトウェアのあるディレクトリに移動します。
 
 4. コマンドを入力して実行します。
-```  
-Usage:
-  GenomeConverter -o 'output' input(s) { -l } { -s name } { -r version }
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
-[Option]
-  --linkage/-l        :  Select only linkaged sequence.
-  --out/-o            : *Output file path.
-  --refver/-r         :  Reference version.
-  --species/-s        :  Species.
-
-  --help/-H           : Show help.
-  --info/-I           : Show app information.
-  --version/-V        : Show version.
-
-  * Required option.
-  # Choose one of the options.
-
-```  
 
 ### 例１ (ヒト)  
 >$ ./GenomeConverter -l -s "H. sapiens" -r GRCh38.p13 -o {SOMEWHERE}/human.bin {SOMEWHERE}/GCF_000001405.39_GRCh38.p13_genomic.fna  
@@ -112,6 +72,3 @@ _II. Google Colab.上で実行する場合_
 2. ノートブック内のガイダンスに従って、必要なライブラリとアプリケーション本体をインストールしてください。
 
 3. 変換したいFASTAシーケンスファイルを入手して、Google colab.上のストレージに保存した後、プログラムを実行します。
-
-## ファイル形式
-
