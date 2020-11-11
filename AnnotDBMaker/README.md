@@ -46,15 +46,17 @@ The encoded binary DNA sequence is
 ***
 
 ## このプログラムについて
-このプログラムは、FASTA形式のDNA塩基配列を４塩基１バイトに圧縮したバイナリファイルに変換するソフトです。
+このプログラムは、GFF3形式のファイルをもとにアノテーション用のsqlite3データベースを作成するコアプログラムです。  
+プログラムを使用するには、別途プラグイン（共有/ダイナミックライブラリ）が必要です。  
+現在、ヒトと線虫用のプラグインが準備されています。  
 
 ## インストール方法
 インストール方法はリポジトリのトップページを参照してください。
 
 ## 使用法  
 _I. 自分のコンピュータ上で実行する場合_
-1. [RefSeq](https://www.ncbi.nlm.nih.gov/refseq/)などから、ゲノムのFASTAファイルをダウンロードしてください。  
-線虫研究者の場合は、[wormbase ftp site](ftp://ftp.wormbase.org/pub/wormbase/species/) からダウロードできるFASTAファイルの方が最新です。  
+1. [Ensembl](http://m.ensembl.org/info/data/ftp/index.html)などから、GFF3ファイルをダウンロードしてください。  
+線虫研究者の場合は、[wormbase ftp site](ftp://ftp.wormbase.org/pub/wormbase/species/) からダウロードできます。  
 
 2. 
 - Mac/Linux/Unixユーザ  
