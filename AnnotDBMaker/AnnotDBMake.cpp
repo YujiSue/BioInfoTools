@@ -27,7 +27,7 @@ private:
 
 			sapp::SPlugIn<STable *, SDictionary &, SBSeqList *> plugin(preference["program"], "makeDB");
 			plugin.exec(tables, preference, &reference);
-            sforin(i, 2, 9) db.createTable(TABLE_NAMES[i], tables[i]);
+            sforin(i, 2, 9) db.createTable(DB_TABLE_NAMES[i], tables[i]);
             
         } catch (sio::SIOException ie) {
             ie.print();

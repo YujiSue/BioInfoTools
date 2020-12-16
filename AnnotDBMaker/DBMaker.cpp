@@ -1,5 +1,17 @@
 #include "DBMaker.h"
 
+const stringarray DB_TABLE_NAMES = {
+   "INFO",
+   "CHROMOSOME",
+   "CONTIG",
+   "GENE",
+   "TRANSCRIPT",
+   "STRUCTURE",
+   "MUTATION",
+   "VARIATION",
+   "FEATURE"
+};
+
 void initTables(STable *tables) {
 	tables[0] = STable({
 		kv("columns", V({
