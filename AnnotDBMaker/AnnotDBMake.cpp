@@ -10,7 +10,6 @@ class AnnotDBMake : public sapp::SCuiApp {
     SDataBase db;
     SBSeqList reference;
     STable tables[9];
-    
 private:
     int exec() {
         try {
@@ -20,15 +19,15 @@ private:
             initTables(tables);
             
             makeInfoTable(&tables[INFO], preference);
-            db.createTable(tables[INFO]);
+            db.createTable("INFO", tables[INFO]);
             
             reference.makeIndex(preference["reference"]);
             makeChrTable(&tables[CHROMOSOME], &reference);
-            db.createTable(tables[CHROMOSOME]);
+            db.createTable("CHROMOSOME", tables[CHROMOSOME]);
 
 			sapp::SPlugIn<STable *, SDictionary &, SBSeqList *> plugin(preference["program"], "makeDB");
 			plugin.exec(tables, preference, &reference);
-            sforin(i, 2, 9) db.createTable(tables[i]);
+            sforin(i, 2, 9) db.createTable(TABLE_NAMES[i], tables[i]);
             
         } catch (sio::SIOException ie) {
             ie.print();

@@ -31,10 +31,19 @@ sfig MakeMap::_makeLine(sbio::annot_info* info, float h, const SColor& col) {
 	line.setStrokeColor(col);
 	return line;
 }
+/*
 sfig MakeMap::_makeBox(sbio::annot_info* info, float h, const SColor& col) {
 	float width = _scale * info->length(true);
 	if (width < 1.0f) width = 1.0f;
 	SRectangle rect(_scale * (info->begin - _pos.begin), h, width, 5.0f);
+	rect.setFillColor(col);
+	return rect;
+}
+*/
+sfig MakeMap::_makeBox(srange* range, float h, const SColor& col) {
+	float width = _scale * range->length(true);
+	if (width < 1.0f) width = 1.0f;
+	SRectangle rect(_scale * (range->begin - _pos.begin), h, width, 5.0f);
 	rect.setFillColor(col);
 	return rect;
 }
@@ -168,7 +177,7 @@ sfig MakeMap::transcripts() {
 				trs_g->addFigure(trs_label);
 				trs_g->addFigure(line);
 				trs_g->addFigure(head);
-				if (E_->type & PROTEN_CODING && (*tit)->type & M_RNA) {
+				if (E_->type & PROTEIN_CODING && (*tit)->type & M_RNA) {
 					auto mes = (*tit)->messenger();
 					sforeach_(sit, mes) {
 						sfig sbox;
@@ -214,6 +223,26 @@ sfig MakeMap::mutations() {
     }
 	return mut_area;
 }
+sfig MakeMap::variants() {
+	SBAnnotDB::mutparray array;
+	_db.variationInfo(array, _pos);
+	sfig var_area(sshape::GROUP);
+	var_area->attribute()["name"] = "variants";
+	if (!array.empty()) {
+		sforeach(array) {
+			sfig var_g(sshape::GROUP);
+			var_g->attribute()["name"] = E_->name;
+			auto mbox = _makeBox(E_, 15.0f, color::DARKRED);
+			scalligraphy mut_label(mbox->boundary().ori_x, 12.0f, E_->name);
+			if (mbox->boundary().ori_x < 0.0) mut_label->shift(v2f(-mbox->boundary().ori_x, 0));
+			var_g->addFigure(mbox);
+			var_g->addFigure(mut_label);
+			var_area->addFigure(var_g);
+		}
+		shift(var_area);
+	}
+	return var_area;
+}
 sfig MakeMap::features(intarray& types) {
 	SBAnnotDB::ftrparray array;
     _db.featureInfo(array, _pos);
@@ -234,4 +263,23 @@ sfig MakeMap::features(intarray& types) {
         shift(ftr_area);
     }
 	return ftr_area;
+}
+sfig MakeMap::customs(SArray& info) {
+	sfig cstm_area(sshape::GROUP);
+	cstm_area->attribute()["name"] = "myregions";
+	if (!info.empty()) {
+		sforeach(info) {
+			sfig cstm_g(sshape::GROUP);
+			cstm_g->attribute()["name"] = E_["name"];
+			sbpos tmp(E_["pos"], &_db.nameIdx());
+			auto cbox = _makeBox(&tmp, 15.0f, E_["col"] ? SColor( E_["col"]):color::DIMGRAY);
+			scalligraphy cstm_label(cbox->boundary().ori_x, 12.0f, E_["name"]);
+			if (cbox->boundary().ori_x < 0.0) cstm_label->shift(v2f(-cbox->boundary().ori_x, 0));
+			cstm_g->addFigure(cbox);
+			cstm_g->addFigure(cstm_label);
+			cstm_area->addFigure(cstm_g);
+		}
+		shift(cstm_area);
+	}
+	return cstm_area;
 }

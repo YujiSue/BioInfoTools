@@ -128,7 +128,7 @@ void loadGFF_HS(STable *table, const char *path, const sindex &chridx) {
                     if (gene_type.contain("protein_coding") ||
                         gene_type.contain("TEC") ||
                         gene_type.contain("TR_") ||
-                        gene_type.contain("IG_")) type = sbio::PROTEN_CODING;
+                        gene_type.contain("IG_")) type = sbio::PROTEIN_CODING;
                     else if (gene_type.contain("lncRNA")) type = LNC_RNA;
                     else if (gene_type.contain("ncRNA")) type = NC_RNA;
                     else if (gene_type.contain("pseudo")) type = sbio::PSEUDOGENE;
@@ -155,7 +155,8 @@ void loadGFF_HS(STable *table, const char *path, const sindex &chridx) {
                 else gene_description = "";
                 SCode::urlDecode(gene_description);
                 row["DESCRIPTION"] = gene_description;
-                table[GENE].addRow(row);
+				table[GENE].addRow();
+				table[GENE].updateRow(table[GENE].rowCount() - 1, row);
             }
             else if (tbl_name == "TRANSCRIPT") {
                 int gr = -1;
@@ -184,7 +185,8 @@ void loadGFF_HS(STable *table, const char *path, const sindex &chridx) {
                 else if (data.type=="vaultRNA_primary_transcript") row["TYPE"] = sbio::VT_RNA;
                 
                 trans_name_idx[data.attribute["transcript_id"]] = table[TRANSCRIPT].rowCount();
-                table[TRANSCRIPT].addRow(row);
+				table[TRANSCRIPT].addRow();
+				table[TRANSCRIPT].updateRow(table[TRANSCRIPT].rowCount() - 1, row);
                 table[GENE][gr][trs_col_index_g].add(table[TRANSCRIPT].rowCount());
             }
             else if (tbl_name == "STRUCTURE") {
@@ -198,7 +200,8 @@ void loadGFF_HS(STable *table, const char *path, const sindex &chridx) {
                 else if (data.type=="exon") row["TYPE"] = sbio::EXON;
                 
                 row["TRANSCRIPT_ID"] = tr+1;
-                table[STRUCTURE].addRow(row);
+				table[STRUCTURE].addRow();
+				table[STRUCTURE].updateRow(table[STRUCTURE].rowCount() - 1, row);
                 table[TRANSCRIPT][tr][strct_col_index_t].add(table[STRUCTURE].rowCount());
             }
         }

@@ -2,7 +2,6 @@
 
 void initTables(STable *tables) {
 	tables[0] = STable({
-		kv("name", "INFO"),
 		kv("columns", V({
 			V({ kv("type", INTEGER_COLUMN | sql::KEY_COLUMN), kv("name", "ID") }),
 			V({ kv("type", STRING_COLUMN), kv("name", "NAME") }),
@@ -10,7 +9,6 @@ void initTables(STable *tables) {
 			}))
 		});
 	tables[1] = STable({
-		kv("name", "CHROMOSOME"),
 		kv("columns", V({
 			V({ kv("type", INTEGER_COLUMN | sql::KEY_COLUMN), kv("name", "ID") }),
 			V({ kv("type", STRING_COLUMN), kv("name", "NAME") }),
@@ -18,7 +16,6 @@ void initTables(STable *tables) {
 			}))
 		});
 	tables[2] = STable({
-		kv("name", "CONTIG"),
 		kv("columns", V({
 			V({ kv("type", INTEGER_COLUMN | sql::KEY_COLUMN), kv("name", "ID") }),
 			V({ kv("type", STRING_COLUMN), kv("name", "NAME") }),
@@ -28,7 +25,6 @@ void initTables(STable *tables) {
 			}))
 		});
 	tables[3] = STable({
-		kv("name", "GENE"),
 		kv("columns", V({
 			V({ kv("type", INTEGER_COLUMN | sql::KEY_COLUMN), kv("name", "ID") }),
 			V({ kv("type", STRING_COLUMN), kv("name", "GENE_ID") }),
@@ -45,7 +41,6 @@ void initTables(STable *tables) {
 			}))
 		});
 	tables[4] = STable({
-		kv("name", "TRANSCRIPT"),
 		kv("columns", V({
 			V({ kv("type", INTEGER_COLUMN | sql::KEY_COLUMN), kv("name", "ID") }),
 			V({ kv("type", INTEGER_COLUMN), kv("name", "GENE_ID") }),
@@ -58,7 +53,6 @@ void initTables(STable *tables) {
 			}))
 		});
 	tables[5] = STable({
-		kv("name", "STRUCTURE"),
 		kv("columns", V({
 			V({ kv("type", INTEGER_COLUMN | sql::KEY_COLUMN), kv("name", "ID") }),
 			V({ kv("type", ARRAY_COLUMN), kv("name", "TRANSCRIPT_ID") }),
@@ -69,7 +63,6 @@ void initTables(STable *tables) {
 			}))
 		});
 	tables[6] = STable({
-		kv("name", "MUTATION"),
 		kv("columns", V({
 			V({ kv("type", INTEGER_COLUMN | sql::KEY_COLUMN), kv("name", "ID") }),
 			V({ kv("type", STRING_COLUMN), kv("name", "MUT_ID") }),
@@ -83,7 +76,6 @@ void initTables(STable *tables) {
 			}))
 		});
 	tables[7] = STable({
-		kv("name", "VARIATION"),
 		kv("columns", V({
 			V({ kv("type", INTEGER_COLUMN | sql::KEY_COLUMN), kv("name", "ID") }),
 			V({ kv("type", STRING_COLUMN), kv("name", "VAR_ID") }),
@@ -97,7 +89,6 @@ void initTables(STable *tables) {
 			}))
 		});
 	tables[8] = STable({
-		kv("name", "FEATURE"),
 		kv("columns", V({
 			V({ kv("type", INTEGER_COLUMN | sql::KEY_COLUMN), kv("name", "ID") }),
 			V({ kv("type", STRING_COLUMN), kv("name", "NAME") }),

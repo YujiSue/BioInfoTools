@@ -121,7 +121,8 @@ void loadGFF_CE(STable *table, sindex gene_name_idx, const char *path, const sin
             row["END"] = data.end;
             if (tbl_name == "CONTIG") {
                 row["NAME"] = data.attribute["Name"];
-                table[CONTIG].addRow(row);
+				table[CONTIG].addRow();
+				table[CONTIG].updateRow(table[CONTIG].rowCount() - 1, row);
             }
             else if (tbl_name == "GENE") {
                 auto gene_name = data.attribute["ID"].substring(data.attribute["ID"].find(":")+1);
@@ -130,7 +131,7 @@ void loadGFF_CE(STable *table, sindex gene_name_idx, const char *path, const sin
                     if (gene_name_idx.hasKey(gene_name)) {
                         auto rowidx = gene_name_idx[gene_name]-1;
                         String type_str = data.attribute["biotype"];
-                        if (type_str.beginWith("protein")) row["TYPE"] = sbio::PROTEN_CODING;
+                        if (type_str.beginWith("protein")) row["TYPE"] = sbio::PROTEIN_CODING;
                         else if (type_str.beginWith("nc")) row["TYPE"] = sbio::NON_CODING;
                         else if (type_str.beginWith("pseudo")) row["TYPE"] = sbio::PSEUDOGENE;
                         else if (type_str.beginWith("tRNA")) row["TYPE"] = sbio::T_RNA;
@@ -149,11 +150,11 @@ void loadGFF_CE(STable *table, sindex gene_name_idx, const char *path, const sin
                         else if (data.attribute["Note"]) map = data.attribute["Note"];
                         if (map.contain("cM")) row["ATTRIBUTE"] = "GMAP="+map.substring(0, map.find("cM")).transformed(sstyle::TRIMMING)+";";
                         else if (map.isNumeric()) row["ATTRIBUTE"] = "GMAP="+map.transformed(sstyle::TRIMMING)+";";
-                        table[GENE].setRow(rowidx, row);
+                        table[GENE].updateRow(rowidx, row);
                     }
                 }
                 else {
-                    auto rowidx = table[GENE].find(gene_name, smath::VERTICAL, name_col_index_g).x;
+                    auto rowidx = table[GENE].find(gene_name, smath::VERTICAL, srange(0, name_col_index_g)).begin;
                     if (rowidx != NOT_FOUND) {
                         auto map = data.attribute["Note"];
                         if (map.contain("cM")) {
@@ -181,7 +182,8 @@ void loadGFF_CE(STable *table, sindex gene_name_idx, const char *path, const sin
                 row["NAME"] = data.attribute["Name"];
                 sint gene_id = gene_name_idx[gen_name];
                 row["GENE_ID"] = gene_id;
-                table[TRANSCRIPT].addRow(row);
+				table[TRANSCRIPT].addRow();
+				table[TRANSCRIPT].updateRow(table[TRANSCRIPT].rowCount() - 1, row);
                 trans_name_idx.set(row["NAME"], table[TRANSCRIPT].rowCount());
                 table[GENE][gene_id-1][trs_col_index_g].add(table[TRANSCRIPT].rowCount());
             }
@@ -201,7 +203,8 @@ void loadGFF_CE(STable *table, sindex gene_name_idx, const char *path, const sin
                     table[TRANSCRIPT][trans_id-1][strct_col_index_t].add(table[STRUCTURE].rowCount()+1);
                 }
                 row["TRANSCRIPT_ID"] = parents;
-                table[STRUCTURE].addRow(row);
+				table[STRUCTURE].addRow();
+				table[STRUCTURE].updateRow(table[STRUCTURE].rowCount() - 1, row);
             }
             else if (tbl_name == "MUTATION" || tbl_name == "VARIATION") {
                 if (data.type=="SNP" || data.type=="point_mutation") row["TYPE"] = sbio::SNV;
@@ -224,7 +227,7 @@ void loadGFF_CE(STable *table, sindex gene_name_idx, const char *path, const sin
                 if (data.attribute["consequence"]) {
                     String conseq = data.attribute["consequence"];
                     int considx;
-                    if (conseq == "Silent") considx = sbio::SILENT;
+                    if (conseq == "Silent") considx = sbio::SILENT_MUT;
                     else if (conseq == "Nonsense") considx = sbio::NONSENSE;
                     else if (conseq == "Missense") considx = sbio::MISSENSE;
                     else if (conseq == "Readthrough") considx = sbio::MISSENSE;
@@ -235,8 +238,14 @@ void loadGFF_CE(STable *table, sindex gene_name_idx, const char *path, const sin
                     if (row["ATTRIBUTE"]) row["ATTRIBUTE"].string()<<"consequence="<<considx<<";";
                     else row["ATTRIBUTE"] = String("consequence=")<<considx<<";";
                 }
-                if (tbl_name == "MUTATION") table[MUTANT].addRow(row);
-                else table[VARIATION].addRow(row);
+				if (tbl_name == "MUTATION") {
+					table[MUTANT].addRow();
+					table[MUTANT].updateRow(table[MUTANT].rowCount() - 1, row);
+				}
+				else {
+					table[VARIATION].addRow();
+					table[VARIATION].updateRow(table[VARIATION].rowCount() - 1, row);
+				}
             }
             else if (tbl_name == "FEATURE") {
                 if (data.source.beginWith("Balanced")) {
@@ -282,7 +291,8 @@ void loadGFF_CE(STable *table, sindex gene_name_idx, const char *path, const sin
                 if (data.source.beginWith("TSS")) {
                     row["TYPE"] = TSS_SITE; row["NAME"] = data.attribute["Name"];
                 }
-                table[FEATURE].addRow(row);
+				table[FEATURE].addRow();
+				table[FEATURE].updateRow(table[FEATURE].rowCount() - 1, row);
             }
         }
     }
@@ -302,7 +312,8 @@ extern "C" {
 					file.readLine(row);
 					stringarray array = row.split(",");
 					if (array.size() < 5 || !(array[1].beginWith("WBG")) || array[4] == "Dead") continue;
-					tables[GENE].addRow({
+					tables[GENE].addRow();
+					tables[GENE].updateRow(tables[GENE].rowCount() - 1, {
 						kv("ID", r),
 						kv("GENE_ID", array[1]),
 						kv("NAME", (array[2].empty() ? array[3] : array[2])),
@@ -334,7 +345,8 @@ extern "C" {
 				while (!file.eof()) {
 					file.readLine(row);
 					auto dat = row.split(TAB);
-					tables[FEATURE].addRow({
+					tables[FEATURE].addRow();
+					tables[FEATURE].updateRow(tables[FEATURE].rowCount() - 1, {
 						kv("ID", snull),
 						kv("TYPE", sbio::BALANCED_SITE),
 						kv("NAME", dat[1]),
@@ -348,7 +360,8 @@ extern "C" {
 			//if (dict["tmallele"]) {}
 		}
 		if (dict["gff"]) loadGFF_CE(tables, gene_name_index, dict["gff"], ref->index);
-		tables[CONTIG].addRow({
+		tables[CONTIG].addRow();
+		tables[CONTIG].updateRow(tables[CONTIG].rowCount() - 1, {
 			kv("ID", snull),
 			kv("NAME", "MTCE"),
 			kv("CHROMOSOME", ref->size() - 1),

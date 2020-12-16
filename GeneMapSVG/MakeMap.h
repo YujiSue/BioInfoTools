@@ -17,7 +17,7 @@ private:
 
 private:
     sfig _makeLine(sbio::annot_info *info, float h, const SColor &col);
-    sfig _makeBox(sbio::annot_info *info, float h, const SColor &col);
+    sfig _makeBox(srange *info, float h, const SColor &col);
     sfig _makeTriangle(int start, bool dir, float h, const SColor &col);
 
 public:
@@ -34,6 +34,8 @@ public:
 	sfig genes();
 	sfig transcripts();
 	sfig mutations();
+	sfig variants();
 	sfig features(intarray &types);
+	sfig customs(SArray &info);
 };
 #endif

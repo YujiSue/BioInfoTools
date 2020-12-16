@@ -143,7 +143,8 @@ private:
 									sforeach_(sit, (*tit)->structures) {
 										if (sit->overlap(*pit)) _site |= sit->type;
 									}
-									str << "(" << SVarUtil::vsite(_site) << ")";
+									auto gsites = sbiutil::geneSite(_site);
+									str << "(" << (gsites.empty()?String("") : gsites[0]) << ")";
 								}
 								str << ",";
 							}

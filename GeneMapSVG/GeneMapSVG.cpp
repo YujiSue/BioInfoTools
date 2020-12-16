@@ -40,7 +40,26 @@ public:
 				mut->shift(v2f(0.0f, canvas.root().boundary().ori_y + canvas.root().boundary().height + 20.0f));
 				canvas.drawFigure(mut);
 			}
-			//if (preference["ftr"]) {}
+			if (preference["var"]) {
+				auto var = mapper.variants();
+				var->shift(v2f(0.0f, canvas.root().boundary().ori_y + canvas.root().boundary().height + 20.0f));
+				canvas.drawFigure(var);
+			}
+			/*
+			if (preference["ftr"]) {
+				auto ftr = mapper.features();
+				ftr->shift(v2f(0.0f, canvas.root().boundary().ori_y + canvas.root().boundary().height + 20.0f));
+				canvas.drawFigure(ftr);
+			}
+			*/
+			if (preference["custom"]) {
+				auto list = String::dequot(preference["custom"]).split(",");
+				SArray info(list.size());
+				sforeach2(info, list) { E1_ = E2_.parse(";", "="); }
+				auto cstm = mapper.customs(info);
+				cstm->shift(v2f(0.0f, canvas.root().boundary().ori_y + canvas.root().boundary().height + 20.0f));
+				canvas.drawFigure(cstm);
+			}
 			canvas.resize(preference["width"], canvas.root().boundary().ori_y + canvas.root().boundary().height + 5.0f);
 			canvas.save(preference["out"]);
         } catch(SBioInfoException be) {
@@ -65,22 +84,22 @@ public:
                 kv("require", V({ "ref", "annot", "pos", "width", "out" }))
             })),
         })),
-        kv("option", V({
-            kv("ref", V({
+		kv("option", V({
+			kv("ref", V({
 				kv("short", "r"),
-                kv("caption", "file"),
-                kv("description", "Reference file path.")
-            })),
-            kv("annot", V({
+				kv("caption", "file"),
+				kv("description", "Reference file path.")
+			})),
+			kv("annot", V({
 				kv("short", "a"),
-                kv("caption", "file"),
-                kv("description", "Annotation database file path.")
-            })),
-            kv("pos", V({
+				kv("caption", "file"),
+				kv("description", "Annotation database file path.")
+			})),
+			kv("pos", V({
 				kv("short", "p"),
-                kv("caption", "position"),
-                kv("description", "Position to obtain the map.")
-            })),
+				kv("caption", "position"),
+				kv("description", "Position to obtain the map.")
+			})),
 			kv("out", V({
 				kv("short", "o"),
 				kv("caption", "file"),
@@ -101,6 +120,11 @@ public:
 				kv("type", "bool"),
 				kv("description", "Show mutations positions.")
 			})),
+			kv("var", V({
+				kv("short", "v"),
+				kv("type", "bool"),
+				kv("description", "Show mutations positions.")
+			})),
 			/*
 			kv("ftr", V({
 				kv("short", "f"),
@@ -108,6 +132,10 @@ public:
 				kv("description", "Show features positions.")
 			})),
 			*/
+			kv("custom", V({
+				kv("caption", "information"),
+				kv("description", "Show original features. \nInformation should be defined as [{name=NNN;pos=1:12345..23456;col=red}, ...]")
+			})),
 			kv("width", V({
 				kv("short", "w"),
                 kv("caption", "value"),

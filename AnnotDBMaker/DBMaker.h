@@ -22,6 +22,18 @@ typedef enum {
 } table_id;
 
 
+extern const char* TABLE_NAMES[10] = {
+	"INFO",
+	"CHROMOSOME",
+	"CONTIG",
+	"GENE",
+	"TRANSCRIPT",
+	"STRUCTURE",
+	"MUTATION",
+	"VARIATION",
+	"FEATURE"
+};
+
 extern void initTables(STable *tables);
 extern void makeInfoTable(STable *table, SDictionary &dict);
 extern void makeChrTable(STable *table, SBSeqList *ref);
