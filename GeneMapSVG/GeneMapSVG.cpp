@@ -55,7 +55,7 @@ public:
 			if (preference["custom"]) {
 				auto list = String::dequot(preference["custom"]).split(",");
 				SArray info(list.size());
-				sforeach2(info, list) { E1_ = E2_.parse(";", "="); }
+				sforeach2(info, list) { E1_ = String::dequot(E2_).parse(";", "="); }
 				auto cstm = mapper.customs(info);
 				cstm->shift(v2f(0.0f, canvas.root().boundary().ori_y + canvas.root().boundary().height + 20.0f));
 				canvas.drawFigure(cstm);
