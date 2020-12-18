@@ -65,7 +65,11 @@ public:
         } catch(SBioInfoException be) {
             be.print();
             return 1;
-        }
+		}
+		catch (SException ex) {
+			ex.print();
+			return 1;
+		}
         return 0;
     }
 public:
