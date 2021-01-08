@@ -10,15 +10,19 @@ public:
     int exec() {
         try {
 			SBSeqList reference;
+			sio::SFile output(preference["out"]);
             sforeach(preference["_args"]) {
-				std::cout << "loading '" << E_ << "'" << std::endl;
-				sio::SFile file(E_);
-				if (file.filename().beginWith("GCF_")) preference["refseq"] = true;
-				SBSeqIO::makeIndex(sbio::ATTRIBUTED | sbio::MASKED | sbio::DNA_SEQ4, file, &reference);
-				if (preference.hasKey("species")) reference.attribute["species"] = preference["species"];
-				if (preference.hasKey("refver")) reference.attribute["version"] = preference["refver"];
-				if (preference.hasKey("source")) reference.attribute["source"] = preference["source"];
+				if (E_.beginWith("ftp://")) { /**/ }
+				else {
+					SPrint("Loading... '", E_, "'");
+					sio::SFile file(E_);
+					if (file.filename().beginWith("GCF_")) preference["refseq"] = true;
+					SBSeqIO::makeIndex(sbio::ATTRIBUTED | sbio::MASKED | sbio::DNA_SEQ4, file, &reference);
+				}
             }
+			if (preference.hasKey("species")) reference.attribute["species"] = preference["species"];
+			if (preference.hasKey("refver")) reference.attribute["version"] = preference["refver"];
+			if (preference.hasKey("source")) reference.attribute["source"] = preference["source"];
             if (preference["refseq"]) {
 				auto size = reference.size();
 				sforeach(reference) {
@@ -76,9 +80,9 @@ public:
 					}
 				}
             }
-			std::cout << "exporting... '" << preference["out"] << "'" << std::endl;
-			reference.save(preference["out"]);
-            std::cout<<"Completed."<<std::endl;
+			SPrint("Exporting... '", output.path(), "'");
+			reference.save(output.path());
+            SPrint("Completed.");
         } catch (SIOException ie) {
             ie.print();
             return 1;
@@ -99,7 +103,7 @@ public:
         kv("app", V({
             kv("type", sapp::SCUI_APP | sapp::SINGLE_COMMAND),
             kv("name", "GenomeConverter"),
-            kv("version", "1.1.0"),
+            kv("version", "1.2.0"),
             kv("creator", "Yuji Suehiro"),
             kv("develop", "2015/02/21"),
             kv("license", "MIT license."),
@@ -129,13 +133,6 @@ public:
 				kv("caption", "version"),
 				kv("description", "Reference version.")
 			})),
-			/*
-            kv("source", V({
-				kv("short", "u"),
-                kv("caption", "url"),
-                kv("description", "Source URL.")
-            })),
-			*/
 			kv("linkage", V({
 				kv("short", "l"),
 				kv("type", "bool"),

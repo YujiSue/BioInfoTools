@@ -31,15 +31,6 @@ sfig MakeMap::_makeLine(sbio::annot_info* info, float h, const SColor& col) {
 	line.setStrokeColor(col);
 	return line;
 }
-/*
-sfig MakeMap::_makeBox(sbio::annot_info* info, float h, const SColor& col) {
-	float width = _scale * info->length(true);
-	if (width < 1.0f) width = 1.0f;
-	SRectangle rect(_scale * (info->begin - _pos.begin), h, width, 5.0f);
-	rect.setFillColor(col);
-	return rect;
-}
-*/
 sfig MakeMap::_makeBox(srange* range, float h, const SColor& col) {
 	float width = _scale * range->length(true);
 	if (width < 1.0f) width = 1.0f;
@@ -60,7 +51,7 @@ sfig MakeMap::_makeTriangle(int start, bool dir, float h, const SColor& col) {
 sfig MakeMap::chromosome() {
 	sfig chr(sshape::GROUP);
 	chr->attribute()["name"] = "chromosome";
-	sline2d chr_line(v2f(0.0f, 20.0f), v2f((float)_width, 20.0f));
+	sline chr_line(v2f(0.0f, 20.0f), v2f((float)_width, 20.0f));
 	chr_line->setStrokeWidth(2.0f);
 	scalligraphy chr_label(0, 12.0, _db.chrInfo(_pos.idx).name);
 	chr_label->setFont("Arial", 12.0f);
@@ -86,7 +77,7 @@ sfig MakeMap::chromosome() {
 		auto init = _pos.begin / lunit;
 		init *= lunit;
 		while (init < _pos.end) {
-			sline2d ls(v2f((init - _pos.begin) * _scale, 12.5f), v2f((init - _pos.begin) * _scale, 27.5f));
+			sline ls(v2f((init - _pos.begin) * _scale, 12.5f), v2f((init - _pos.begin) * _scale, 27.5f));
 			ls->setStrokeWidth(1.5f);
 			scales.addFigure(ls);
 			scalligraphy scale_label((init - _pos.begin) * _scale - 2.5f, 10.0, String(init / unit_len) + unit);
@@ -98,7 +89,7 @@ sfig MakeMap::chromosome() {
 		init = _pos.begin / sunit;
 		init *= sunit;
 		while (init < _pos.end) {
-			sline2d ls(v2f((init - _pos.begin) * _scale, 16.0f), v2f((init - _pos.begin) * _scale, 24.0f));
+			sline ls(v2f((init - _pos.begin) * _scale, 16.0f), v2f((init - _pos.begin) * _scale, 24.0f));
 			ls->setStrokeWidth(0.75f);
 			scales.addFigure(ls);
 			init += sunit;

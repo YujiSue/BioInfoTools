@@ -21,7 +21,7 @@ private:
     SBAnnotDB _annot;
 	bool _tsite;
 	subyte _from, _to, _gtype;
-    \
+    
 	inline void convertType(sobj obj, subyte &byte) {
 		if (obj == "pos") byte = TYPE_CHR;
 		else if (obj == "ctg") byte = TYPE_CTG;
@@ -41,10 +41,14 @@ private:
     int annotation() {
         try {
 			Array<sbpos> posarray;
+			if (preference["in"]) {
+
+			}
+			if (preference["out"] && preference["out"] != "_STD_OUT_") FILEIO_MODE(preference["out"]);
 			sforeach(preference["_args"]) {
-				std::cout << E_ << TAB << ">>" << TAB;
+				SPrint(E_, TAB, ">>", TAB);
 				if (_from == _to) {
-					std::cout << E_ << std::endl;
+					SPrint(E_);
 					continue;
 				}
 				switch (_from) {
@@ -91,7 +95,7 @@ private:
 				case TYPE_CHR:
 				{
 					sforeach_(pit, posarray) {
-						std::cout << _annot.chrInfo(pit->idx).name << ":" << pit->begin << ".." << pit->end << "(" << (pit->dir ? "-" : "+") << ")" << std::endl;
+						SPrint(_annot.chrInfo(pit->idx).name, ":", pit->begin, "..", pit->end, "(", (pit->dir ? "-" : "+"), ")");
 					}
 					break;
 				}
@@ -101,11 +105,11 @@ private:
 					sforeach_(pit, posarray) {
 						_annot.ctgInfo(array, *pit);
 						if (!array.empty()) {
-							std::cout << array.first()->name << ":" << pit->begin - array.first()->begin + 1;
-							if (pit->end <= array.first()->end) std::cout << pit->end - array.first()->begin + 1;
-							else  std::cout << array.last()->name << ":" << pit->end - array.last()->begin + 1;
+							SWrite(array.first()->name, ":", pit->begin - array.first()->begin + 1);
+							if (pit->end <= array.first()->end) SPrint(pit->end - array.first()->begin + 1);
+							else  SPrint(array.last()->name, ":", pit->end - array.last()->begin + 1);
 						}
-						else std::cout << "Not found." << std::endl;
+						else SPrint("Not found.");
 						array.clear();
 					}
 					break;
@@ -124,7 +128,7 @@ private:
 							str.resize(str.size() - 1);
 						}
 						else str << "Not found.";
-						std::cout << str << std::endl;
+						SPrint(str );
 						array.clear(); str.clear();
 					}
 					break;
@@ -151,7 +155,7 @@ private:
 							str.resize(str.size() - 1);
 						}
 						else str << "Not found.";
-						std::cout << str << std::endl;
+						SPrint(str);
 						array.clear(); str.clear();
 					}
 					break;
@@ -167,7 +171,7 @@ private:
 							str.resize(str.size() - 1);
 						}
 						else str << "Not found.";
-						std::cout << str << std::endl;
+						SPrint(str);
 						array.clear(); str.clear();
 					}
 					break;
@@ -183,7 +187,7 @@ private:
 							str.resize(str.size() - 1);
 						}
 						else str << "Not found.";
-						std::cout << str << std::endl;
+						SPrint(str);
 						array.clear(); str.clear();
 					}
 					break;
@@ -203,7 +207,7 @@ private:
 			convertType(preference["from"], _from);
 			convertType(preference["to"], _to);
 			if (!_from || !_to) {
-				std::cout << "Please select a type from 'pos, gene, trs, or mut' for 'from' and 'to' options." << std::endl;
+				SPrint("Please select a type from 'pos, gene, trs, or mut' for 'from' and 'to' options.");
 				return 1;
 			}
 			if (preference["gtype"]) {
@@ -235,6 +239,7 @@ public:
         kv("command", V({
             kv("_exec", V({
                 kv("require", V({ "db", "from", "to", "_args" }))
+				kv("select", V({"_args", "in"}))
             }))
         })),
         kv("option", V({
@@ -263,9 +268,19 @@ public:
 				kv("type", "bool"),
 				kv("description", "Show sites of transcripts (CDS/exon/intron/5'UTR/3'UTR).")
 			})),
+			kv("in", V({
+				kv("short", "i"),
+				kv("caption", "file"),
+				kv("description", "Input file")
+			})),
+			kv("out", V({
+				kv("short", "o"),
+				kv("caption", "file"),
+				kv("description", "Output file")
+			})),
 			kv("_args", V({
 				kv("caption", "input"),
-				kv("description", "Input")
+				kv("description", "Input argment")
 			}))
         }))
     }) {}
