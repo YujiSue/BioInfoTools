@@ -41,12 +41,8 @@ private:
     int annotation() {
         try {
 			Array<sbpos> posarray;
-			if (preference["in"]) {
-
-			}
-			if (preference["out"] && preference["out"] != "_STD_OUT_") FILEIO_MODE(preference["out"]);
 			sforeach(preference["_args"]) {
-				SPrint(E_, TAB, ">>", TAB);
+				SWrite(E_, TAB, ">>", TAB);
 				if (_from == _to) {
 					SPrint(E_);
 					continue;
