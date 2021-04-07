@@ -13,8 +13,6 @@ public:
             SGFFFile gff;
             SDictionary dict;
             gff.open(preference["_args"][0]);
-			if (preference["out"] == "_STD_OUT_") STDIO_MODE;
-			else FILEIO_MODE(preference["out"]);
             while (gff.next()) {
                 auto &dat = gff.data();
                 auto &arr = dict[dat.source][dat.type];
@@ -39,7 +37,7 @@ public:
         kv("app", V({
             kv("type", SCUI_APP | SINGLE_COMMAND),
             kv("name", "GFFParser"),
-            kv("version", "1.2.0"),
+            kv("version", "1.1.0"),
             kv("creator", "Yuji Suehiro"),
             kv("license", "MIT license."),
             kv("develop", "2015/03/15"),
@@ -53,12 +51,7 @@ public:
             kv("_args", V({
                 kv("caption", "input(.gff3)"),
                 kv("description", "Input gff3 file.")
-            })),
-			kv("out", V({
-				kv("short", "o"),
-				kv("caption", "dest"),
-				kv("description", "To save result, set the output file path. Or, set '_STD_OUT_' to display the result on the console.")
-			}))
+            }))
         }))
     }) {}
     ~GFFParser() {}
