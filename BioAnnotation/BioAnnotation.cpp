@@ -238,7 +238,7 @@ public:
         })),
         kv("command", V({
             kv("_exec", V({
-                kv("require", V({ "db", "from", "to", "_args" }))
+                kv("require", V({ "db", "from", "to", "_args" })),
 				kv("select", V({"_args", "in"}))
             }))
         })),
