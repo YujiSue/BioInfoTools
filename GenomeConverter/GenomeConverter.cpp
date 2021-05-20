@@ -64,8 +64,7 @@ public:
 					if (s2->name == "mtDNA") return true;
 					return s1->name.intValue() < s2->name.intValue();
 				});
-				if (preference["linkage"]) {
-					SArray tmp;
+				SArray tmp;
 					sforin(i, 0, size) {
 						auto idx = reference.index[reference[i]->attribute["_origin"]];
 						tmp.add(reference.attribute["_offset"][idx]);
@@ -78,7 +77,6 @@ public:
 						reference.index[reference[i]->name] =  i;
 						reference.lengthList().add(reference[i]->length());
 					}
-				}
             }
 			SPrint("Exporting... '", output.path(), "'");
 			reference.save(output.path());
