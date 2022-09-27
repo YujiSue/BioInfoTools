@@ -23,7 +23,8 @@ public:
             }
             sforeach(dict) {
                 auto keys = E_.value.keyset();
-				sforeach_(kit, keys) SPrint(E_.key, TAB, *kit, TAB, E_.value[*kit]);
+		keys.sort();
+		sforeach_(kit, keys) SPrint(E_.key, TAB, *kit, TAB, E_.value[*kit]);
             }
         } 
 		catch (SBioInfoException be) { be.print(); return 1; }
