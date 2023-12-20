@@ -102,8 +102,8 @@ private:
 						_annot.ctgInfo(array, *pit);
 						if (!array.empty()) {
 							SWrite(array.first()->name, ":", pit->begin - array.first()->begin + 1);
-							if (pit->end <= array.first()->end) SPrint(pit->end - array.first()->begin + 1);
-							else  SPrint(array.last()->name, ":", pit->end - array.last()->begin + 1);
+							if (pit->end <= array.first()->end) SPrint("..", pit->end - array.first()->begin + 1);
+							else  SPrint("..", array.last()->name, ":", pit->end - array.last()->begin + 1);
 						}
 						else SPrint("Not found.");
 						array.clear();
